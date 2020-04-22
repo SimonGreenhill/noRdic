@@ -4,11 +4,14 @@ Title: Runs noRdic Plants Analyses
 Version: 0.1.0
 Author: Simon Greenhill
 Maintainer: Simon J. Greenhill <simon@simon.net.nz>
-Description:
-License: MIT
+Description: Helper package for the Nordic plants analyses.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Suggests: 
-    covr
+Suggests:
+    ape,
+    covr,
     corHMM,
-    covr
+    testthat,
+    tidyr
+RoxygenNote: 7.1.0
