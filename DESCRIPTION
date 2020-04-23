@@ -1,7 +1,7 @@
 Package: noRdic
 Type: Package
 Title: Runs noRdic Plants Analyses
-Version: 0.1.0
+Version: 0.3.0
 Author: Simon Greenhill
 Maintainer: Simon J. Greenhill <simon@simon.net.nz>
 Description: Helper package for the Nordic plants analyses.
