@@ -71,3 +71,17 @@ to.rayDISC <- function(df, taxa, state='0') {
     )
     rbind(df, new)
 }
+
+
+plot_noRdic <- function(tree, data, result) {
+    get_tip_color <- function(s) ifelse(s == '1', 'black', 'white')
+    rownames(data) <- data$AREA
+    colors <- sapply(data[tree$tip.label, 'STATE'], get_tip_color, simplify=TRUE, USE.NAMES=FALSE)
+
+    corHMM::plotRECON(tree, result$states, pie.cex=1, font=1, cex=1.4)
+    tiplabels(pch = 21, col = "#333333", bg = colors, adj = 0.45, cex = 2)
+    nodelabels(round(result$states[, 2], 2), adj=-0.8, cex=0.8, frame="none", bg="none")
+}
+
+
+
