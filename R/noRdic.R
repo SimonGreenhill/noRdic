@@ -63,13 +63,15 @@ to.rayDISC <- function(df, taxa, state='0') {
     # remove duplicate rows if present.
     df <- df[!duplicated(df), ]
 
-    new <- data.frame(
-        AREA = taxa[taxa %in% df$AREA == FALSE],
-        TYPE = df$TYPE[[1]],
-        USE = df$USE[[1]],
-        STATE = state
-    )
-    rbind(df, new)
+    if (!all(taxa %in% df$AREA)) {
+        df <- rbind(df, data.frame(
+            AREA = taxa[taxa %in% df$AREA == FALSE],
+            TYPE = df$TYPE[[1]],
+            USE = df$USE[[1]],
+            STATE = state
+        ))
+    }
+    df
 }
 
 

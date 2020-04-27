@@ -61,4 +61,13 @@ test_that("Test to.rayDISC", {
     expect_equal(d[d$AREA == 'DEN', 'STATE'], '0')
     expect_equal(d[d$AREA == 'ELF', 'STATE'], '2')
     expect_equal(d[d$AREA == 'NORN', 'STATE'], '3')
+
+    # test complete datasets don't break
+    d <- to.rayDISC(testdata[testdata$USE == 'M', ], c("DEN", "FOR", "NORN", "NORS"))
+
+    expect_equal(nrow(d), 4)
+    expect_equal(d[d$AREA == 'DEN', 'STATE'], '1')
+    expect_equal(d[d$AREA == 'FOR', 'STATE'], '1')
+    expect_equal(d[d$AREA == 'NORN', 'STATE'], '1')
+    expect_equal(d[d$AREA == 'NORS', 'STATE'], '1')
 })
