@@ -18,15 +18,13 @@
 #'
 #' @return a dataframe
 #' @export
-read.nordic <- function(filename, ...) {
-
-    data <- utils::read.csv(filename, header = TRUE, stringsAsFactors = FALSE, ...)
-
+read.nordic <- function(filename) {
+    data <- readr::read_csv(filename, show_col_types = FALSE)
+    data <- as.data.frame(data)
     # check the format looks right
-    if (!all(colnames(data) %in% c("AREA", "GENUSE", "SPUSE"))) {
+    if (!all(c("AREA", "GENUSE", "SPUSE") %in% colnames(data))) {
         stop(sprintf("File %s does not look like a Nordic CSV", filename))
     }
-
     tidyr::gather(data, 'TYPE', 'USE', c("GENUSE", "SPUSE"))
 }
 
