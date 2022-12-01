@@ -11,10 +11,10 @@ library(testthat)
 # DEN,M,M_blood
 # FOR,M,M_blood
 # NORN,M,M_blood
-testdata <- read.nordic('testdata.csv')
-
 
 test_that("Test read.nordic", {
+    testdata <- read.nordic('testdata.csv')
+
     expect_equal(colnames(testdata), c("AREA", "TYPE", "USE"))
 
     expect_equal(
@@ -36,7 +36,50 @@ test_that("Test read.nordic", {
 })
 
 
+test_that("Test read.nordic - with colon delim", {
+    testdata <- read.nordic('testdata-colon.csv')
+
+    expect_equal(colnames(testdata), c("AREA", "TYPE", "USE"))
+
+    expect_equal(
+        sort(unique(testdata[testdata$USE == 'M', 'AREA'])),
+        c("DEN", "FOR", "NORN", "NORS")
+    )
+
+    expect_equal(
+        sort(unique(testdata[testdata$USE == 'IC', 'AREA'])),
+        c("DEN", "NORN", "SWE")
+    )
+
+    expect_equal(
+        sort(unique(testdata[testdata$USE == 'M_blood', 'AREA'])),
+        c("DEN", "FOR", "NORN", "NORS")
+    )
+})
+
+
+test_that("Test read.nordic - with empty rows", {
+    testdata <- read.nordic('testdata-emptyrows.csv')
+
+    expect_equal(colnames(testdata), c("AREA", "TYPE", "USE"))
+
+    expect_equal(
+        sort(unique(testdata[testdata$USE == 'F', 'AREA'])),
+        c("FOR", "ICE")
+    )
+
+    expect_equal(
+        sort(unique(testdata[testdata$USE == 'S', 'AREA'])),
+        c("FOR")
+    )
+})
+
+
+
+
 test_that("Test to.rayDISC", {
+    testdata <- read.nordic('testdata.csv')
+
     d <- to.rayDISC(testdata[testdata$USE == 'IC_dyes', ], c("DEN", "FOR"))
     expect_equal(nrow(d), 3)
     expect_equal(d[d$AREA == 'SWE', 'STATE'], '1')
